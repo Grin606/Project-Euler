@@ -1,25 +1,3 @@
-=begin
-
-Combination numbers:
-"0" => High Card: Highest value card.
-"1" => One Pair: Two cards of the same value.
-"2" => Two Pairs: Two different pairs.
-"3" => Three of a Kind: Three cards of the same value.
-"4" => Straight: All cards are consecutive values.
-"5" => Flush: All cards of the same suit.
-"6" => Full House: Three of a kind and a pair.
-"7" => Four of a Kind: Four cards of the same value.
-"9" => Straight (Royal) Flush: All cards are consecutive values of same suit.
-
-Method "combo" returns a characteristic string for each 5 cards:
-1) first char - a combination number
-2) next pare chars - a main card value from combination
-3) next (if it's necessary) - all cards in descending order
-
-Characteristic string of 1st player hand is alphabeticaly MORE then 2nd <=> 1st player is a winner
-
-=end
-
 $card_hash = {
 "2"=> "02",
 "3"=> "03",
@@ -36,10 +14,8 @@ $card_hash = {
 "A"=> "14"}
 
 def combo(arr)
-  
   card_value, card_suit = arr.map{|c| c.split("")}.transpose
   card_value = card_value.map{|c| $card_hash[c]}.sort.reverse # convert cards with hash and sort in desc order 
-  
   case card_value.uniq.length # number of different card values
   when 2 # 4 or 3+2
     if card_value[1] == card_value[3] # 4: 44441 / 14444
@@ -57,9 +33,9 @@ def combo(arr)
   when 4 # 2
     second = card_value[1]
     if card_value.count(second) == 2 # 22111 / 122111
-      return "1" + second
+      return "1" + second + card_value.join
     else # 11221 / 11122
-      return "1" + card_value[3]
+      return "1" + card_value[3] + card_value.join
     end
   else # all card values are different
     combo_num = 0
@@ -69,17 +45,14 @@ def combo(arr)
   end
 end
 
-
-
-problem54 = "8C TS KC 9H 4S 7D 2S 5D 3S AC 
-5C AD 5D AC 9C 7C 5H 8D TD KS" #...
+card_string = "8C TS KC 9H 4S 7D 2S 5D 3S AC 
+5C AD 5D AC 9C 7C 5H 8D TD KS" #... see file poker.txt
 
 sum = 0
-problem54.each_line do |line|
-cards_both = line.chomp.split(" ")
-cards_1, cards_2 = cards_both[0..4], cards_both[5..9]
-sum += 1 if combo(cards_1) > combo(cards_2)
+card_string.each_line do |line|
+  cards_both = line.chomp.split(" ")
+  cards_1, cards_2 = cards_both[0..4], cards_both[5..9]
+  sum += 1 if combo(cards_1) > combo(cards_2)
 end
-
 p sum
 
