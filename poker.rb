@@ -33,7 +33,7 @@ def combo(arr)
     end
   when 4 # 2
     second = card_value[1]
-    if card_value.count(second) == 2 # 22111 / 122111
+    if card_value.count(second) == 2 # 22111 / 12211
       return "1" + second + card_value.join
     else # 11221 / 11122
       return "1" + card_value[3] + card_value.join
