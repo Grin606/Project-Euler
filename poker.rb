@@ -18,10 +18,11 @@ def combo(arr)
   card_value = card_value.map{|c| $card_hash[c]}.sort.reverse # convert cards with hash and sort in desc order 
   case card_value.uniq.length # number of different card values
   when 2 # 4 or 3+2
+    middle = card_value[2]
     if card_value[1] == card_value[3] # 4: 44441 / 14444
-      return "7" + card_value[2]
+      return "7" + middle
     else # 3+2: 33322 / 22333
-      return "6" + card_value[2]
+      return "6" + middle
     end
   when 3 # 3 or 2+2
     middle = card_value[2]
