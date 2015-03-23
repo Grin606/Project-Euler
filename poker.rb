@@ -26,7 +26,7 @@ def combo(arr)
     end
   when 3 # 3 or 2+2
     middle = card_value[2]
-    if card_value.count(middle) == 3 # 3: 33311 / 13331 / 33311
+    if card_value.count(middle) == 3 # 3: 33311 / 13331 / 11333
       return "3" + middle
     else # 2+2: 22221 / 22122 / 12222
       return "2" + card_value[1] + card_value[3] + card_value.join
